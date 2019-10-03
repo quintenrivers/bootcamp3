@@ -4,7 +4,7 @@ var path = require('path'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     config = require('./config'),
-    listingsRouter = require('../routes/listings.server.routes'), 
+    listingsRouter = require('../routes/listings.server.routes.js'), 
     getCoordinates = require('../controllers/coordinates.server.controller.js');
 
 module.exports.init = function() {
@@ -32,7 +32,7 @@ module.exports.init = function() {
      use the listings router middleware for requests to the api 
      check the variables list above
   */
-  app.use('/api/listings');
+  app.use('/api/listings', listingsRouter);
 
 
    /* Request Handler for coordinates
@@ -46,13 +46,14 @@ module.exports.init = function() {
      Sends a response (res) to go to the homepage for all routes not specified */ 
   app.all('/*', function(req, res) {
    
-   /*Add YOUR CODE HERE 
+   /*
+      Add YOUR CODE HERE 
       see https://expressjs.com/en/api.html#res.sendFile
       see https://nodejs.org/api/path.html
       The path.resolve() method returns a string and resolves a sequence of paths or path segments into an absolute path.
       If no path segments are passed, path.resolve() will return the absolute path of the current working directory.
    */
-   //res.sendFile(path.resolve(...));
+   res.sendFile(path.resolve('/client/index.html'));
   });
   
   return app;
